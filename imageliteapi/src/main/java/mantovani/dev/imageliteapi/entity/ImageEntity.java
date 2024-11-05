@@ -1,6 +1,7 @@
 package mantovani.dev.imageliteapi.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,11 +16,12 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class Image {
+public class ImageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Long id;
     @Column
     private String name;
     @Column
