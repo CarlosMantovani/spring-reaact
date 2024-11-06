@@ -2,6 +2,7 @@ package mantovani.dev.imageliteapi.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mantovani.dev.imageliteapi.Mapper.ImageMapper;
 import mantovani.dev.imageliteapi.Service.ImageService;
 import mantovani.dev.imageliteapi.entity.ImageEntity;
 import mantovani.dev.imageliteapi.entity.enums.ImageExtesion;
@@ -24,7 +25,7 @@ import java.util.List;
 public class ImagesController {
 
     private final ImageService imageService;
-
+    private final ImageMapper mapper;
     @PostMapping
     public ResponseEntity save(@RequestParam("file") MultipartFile file,
                                @RequestParam("name") String name,
@@ -34,11 +35,10 @@ public class ImagesController {
 
         MediaType.valueOf(file.getContentType());
 
-        ImageEntity imageEntity = ImageEntity.builder().name(name).tags(String.join(",", tags))
-                .size(file.getSize()).extesion(ImageExtesion.valueOf(MediaType.valueOf(file.getContentType())))
-                .file(file.getBytes()).build();
+        ImageEntity imageEntity = mapper.mapToImage(file, name, tags);
+        ImageEntity  savedImage = imageService.create(imageEntity);
 
-        imageService.create(imageEntity);
+
         return new ResponseEntity(HttpStatus.CREATED);
     }
 }
