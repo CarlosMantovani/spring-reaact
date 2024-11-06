@@ -20,8 +20,8 @@ import java.time.LocalDateTime;
 @Builder
 public class ImageEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     @Column
     private String name;
     @Column
@@ -37,4 +37,8 @@ public class ImageEntity {
     @Column
     @Lob
     private byte[] file;
+
+    public String getFileName(){
+        return  getName().concat(".").concat(getExtesion().name());
+    }
 }
