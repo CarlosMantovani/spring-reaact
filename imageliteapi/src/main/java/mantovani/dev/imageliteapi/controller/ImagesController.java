@@ -53,16 +53,16 @@ public class ImagesController {
         var image = possibleImage.get();
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(image.getExtesion().getMediaType());
+        headers.setContentType(image.getExtension().getMediaType());
         headers.setContentLength(image.getSize());
         headers.setContentDispositionFormData("inline; filename= \"" +image.getFileName()+ "\"", image.getFileName());
 
         return new ResponseEntity<>(image.getFile(), headers, HttpStatus.OK);
     }
 @RequestMapping()
-    public ResponseEntity<List<ImageDTO>> search(@RequestParam(value = "extension", required = false)String extension,
+    public ResponseEntity<List<ImageDTO>> search(@RequestParam(value = "extension", required = false, defaultValue = "")String extension,
                                                  @RequestParam(value = "query", required = false)  String query){
-       var result =  imageService.search(ImageExtesion.valueOf(extension),query);
+       var result =  imageService.search(ImageExtesion.ofName(extension),query);
        var images = result.stream().map(image -> {
            var url = buildImageUrl(image);
            return mapper.imageToDTO(image, url.toString());

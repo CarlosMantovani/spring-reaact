@@ -24,4 +24,8 @@ public enum ImageExtesion {
                 .orElse(null);
     }
 
+    public static ImageExtesion ofName(String name){
+        return Arrays.stream(values()).filter(ie ->ie.name().equalsIgnoreCase(name))
+                .findFirst().orElse(null);
+    }
 }
