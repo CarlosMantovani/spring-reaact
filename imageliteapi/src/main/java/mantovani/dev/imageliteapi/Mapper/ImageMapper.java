@@ -1,5 +1,6 @@
 package mantovani.dev.imageliteapi.Mapper;
 
+import mantovani.dev.imageliteapi.dto.ImageDTO;
 import mantovani.dev.imageliteapi.entity.ImageEntity;
 import mantovani.dev.imageliteapi.entity.enums.ImageExtesion;
 import org.springframework.http.MediaType;
@@ -16,8 +17,12 @@ public class ImageMapper {
        return ImageEntity.builder().name(name).tags(String.join(",", tags))
                 .size(file.getSize()).extesion(ImageExtesion.valueOf(MediaType.valueOf(file.getContentType())))
                 .file(file.getBytes()).build();
-
     }
 
+    public ImageDTO imageToDTO(ImageEntity image, String url){
+        return ImageDTO.builder().url(url).extension(image.getExtesion()
+                .name()).name(image.getName()).size(image.getSize())
+                .uploandDate(image.getUploadDate().toLocalDate()).build();
+    }
 
 }
