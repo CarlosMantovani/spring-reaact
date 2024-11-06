@@ -6,6 +6,8 @@ import mantovani.dev.imageliteapi.repository.ImageRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ImageService {
@@ -17,4 +19,7 @@ public class ImageService {
         return imageRepository.save(imageEntity);
     }
 
+    public Optional<ImageEntity> getById(String id){
+        return imageRepository.findById(id);
+    }
 }
