@@ -28,7 +28,7 @@ public class ImageEntity {
     private Long size;
     @Column
     @Enumerated(EnumType.STRING)
-    private ImageExtesion extesion;
+    private ImageExtesion extension;
     @Column
     @CreatedDate
     private LocalDateTime uploadDate;
@@ -39,6 +39,6 @@ public class ImageEntity {
     private byte[] file;
 
     public String getFileName(){
-        return  getName().concat(".").concat(getExtesion().name());
+        return  getName().concat(".").concat(getExtension().name());
     }
 }
