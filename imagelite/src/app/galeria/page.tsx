@@ -1,4 +1,6 @@
-import { Template } from '../../components/Template'
+import { Template } from '@/components'
+
+
 export default function GaleriaPage(){
     return(
         <Template>
