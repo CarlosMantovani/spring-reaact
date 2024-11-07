@@ -1,4 +1,4 @@
-import{ Image } from './image.resource'
+import{ Image } from './image-resource'
 
 class ImageService{
     basURL: string = 'http://localhost:8080/v1/images';
