@@ -19,10 +19,14 @@ public class ImageMapper {
                 .file(file.getBytes()).build();
     }
 
-    public ImageDTO imageToDTO(ImageEntity image, String url){
-        return ImageDTO.builder().url(url).extension(image.getExtension()
-                .name()).name(image.getName()).size(image.getSize())
-                .uploandDate(image.getUploadDate().toLocalDate()).build();
+    public ImageDTO imageToDTO(ImageEntity image, String url) {
+        return ImageDTO.builder()
+                .url(url)
+                .extension(image.getExtension() != null ? image.getExtension().name() : null)
+                .name(image.getName())
+                .size(image.getSize())
+                .uploandDate(image.getUploadDate() != null ? image.getUploadDate().toLocalDate() : null)
+                .build();
     }
 
 }
