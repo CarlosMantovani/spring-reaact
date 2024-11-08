@@ -1,18 +1,11 @@
 'use client'
 
 import { InputText, Template, Button, RenderIf} from "@/components"
-import Link from "next/link"
 import { useImageService } from '@/resources/image/image-service'
 import { useFormik} from 'formik'
 import { useState } from "react";
-
-interface FormProps{
-    name: string;
-    tags: string;
-    file: any;
-}
-
-const formScheme: FormProps = {name: '', tags: '', file: ''}
+import {FormProps, formScheme, formValidationSchema } from "./formScheme";
+import Link from "next/link"
 
 export default function FormularioPage(){
 
@@ -22,7 +15,8 @@ export default function FormularioPage(){
 
     const formik = useFormik<FormProps>({
         initialValues: formScheme,
-        onSubmit: handleSubmit
+        onSubmit: handleSubmit,
+        validationSchema: formValidationSchema
     })
 
     async function handleSubmit(dados: FormProps){
@@ -54,12 +48,12 @@ export default function FormularioPage(){
                 <form onSubmit={formik.handleSubmit}>
                     <div className="grid grid-cols-1">
                         <label className="block text-sm font-medium leading-6 text-gray-700">Name: *</label>
-                        <InputText id="name" onChange={formik.handleChange} value={formik.values.name}  placeholder="type the image's name" />
+                        <InputText id="name" onChange={formik.handleChange} value={formik.values.name}  placeholder="type the image's name"  /> <span className="text-red-500">{formik.errors.name}</span>
                     </div>
 
                     <div className="grid grid-cols-1 mt-5">
                         <label className="block text-sm font-medium leading-6 text-gray-700">Tags: *</label>
-                        <InputText id="tags" onChange={formik.handleChange} value={formik.values.tags} placeholder="type the tags comma separated" />
+                        <InputText id="tags" onChange={formik.handleChange} value={formik.values.tags} placeholder="type the tags comma separated" /> <span className="text-red-500">{formik.errors.tags}</span>
                     </div>
 
                     <div className="grid grid-cols-1 mt-5">
