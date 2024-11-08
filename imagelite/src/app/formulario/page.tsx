@@ -2,6 +2,7 @@
 
 import { InputText, Template, Button, RenderIf} from "@/components"
 import Link from "next/link"
+import { useImageService } from '@/resources/image/image-service'
 import { useFormik} from 'formik'
 import { useState } from "react";
 
@@ -15,14 +16,26 @@ const formScheme: FormProps = {name: '', tags: '', file: ''}
 
 export default function FormularioPage(){
 
+   
     const [imagePreview, setImagePreview] = useState<string>();
+    const service = useImageService();
 
     const formik = useFormik<FormProps>({
         initialValues: formScheme,
-        onSubmit: (dados: FormProps) => {
-            console.log(dados)
-        }
+        onSubmit: handleSubmit
     })
+
+    async function handleSubmit(dados: FormProps){
+        const formData = new FormData()
+        formData.append("file", dados.file);
+        formData.append("name", dados.name);
+        formData.append("tags", dados.tags);
+
+       await service.salvar(formData)
+
+       formik.resetForm();
+       setImagePreview('')
+    }
 
     function onFileUpload(event: React.ChangeEvent<HTMLInputElement>){
         if(event.target.files){
@@ -41,17 +54,18 @@ export default function FormularioPage(){
                 <form onSubmit={formik.handleSubmit}>
                     <div className="grid grid-cols-1">
                         <label className="block text-sm font-medium leading-6 text-gray-700">Name: *</label>
-                        <InputText id="name" onChange={formik.handleChange} placeholder="type the image's name" />
+                        <InputText id="name" onChange={formik.handleChange} value={formik.values.name}  placeholder="type the image's name" />
                     </div>
 
                     <div className="grid grid-cols-1 mt-5">
                         <label className="block text-sm font-medium leading-6 text-gray-700">Tags: *</label>
-                        <InputText id="tags" onChange={formik.handleChange} placeholder="type the tags comma separated" />
+                        <InputText id="tags" onChange={formik.handleChange} value={formik.values.tags} placeholder="type the tags comma separated" />
                     </div>
 
                     <div className="grid grid-cols-1 mt-5">
                         <label className="block text-sm font-medium leading-6 text-gray-700">Image: *</label>
                         <div className="mt -2 flex justify-center rounded-lg border border-dashed  border-gray-900/25 px-6 py-10">
+
                         <div className="text-center">
                             <RenderIf condition={!imagePreview}>
                                 <svg className="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
