@@ -1,3 +1,7 @@
+Aqui está o README atualizado com a informação para acessar a aplicação na porta 3000:
+
+---
+
 # Aplicação Spring React
 
 ## Descrição
@@ -31,6 +35,11 @@ Este projeto integra um backend Spring Boot com um frontend React, criando uma a
    ```bash
    docker-compose up
    ```
+### Acessando a Aplicação
+Depois de rodar o projeto, abra o navegador e acesse a aplicação na porta `3000`:
+```bash
+http://localhost:3000
+```
 
 ### Executando Separadamente no Modo de Desenvolvimento
 #### Backend (Spring Boot)
@@ -56,3 +65,6 @@ Este projeto integra um backend Spring Boot com um frontend React, criando uma a
    ```bash
    npm start
    ```
+
+
+
