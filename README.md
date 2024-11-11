@@ -1,6 +1,3 @@
-Aqui está o README atualizado com a informação para acessar a aplicação na porta 3000:
-
----
 
 # Aplicação Spring React
 
